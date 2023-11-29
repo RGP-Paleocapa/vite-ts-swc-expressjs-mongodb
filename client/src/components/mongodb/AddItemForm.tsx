@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 type AddItemFormProps = {
   onAddItem: (item: { name: string; description: string }) => void;
@@ -10,9 +10,15 @@ function AddItemForm({ onAddItem }: AddItemFormProps) {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    onAddItem({ name, description });
-    setName('');
-    setDescription('');
+
+    // Check if name and description are not empty
+    if (name.trim() !== '' && description.trim() !== '') {
+      onAddItem({ name, description });
+      setName('');
+      setDescription('');
+    } else {
+      alert('Please fill in all fields.'); // Or handle the error in a more user-friendly way
+    }
   };
 
   return (
