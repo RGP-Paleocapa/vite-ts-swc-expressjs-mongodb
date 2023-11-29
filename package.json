@@ -1,0 +1,12 @@
+{
+    "scripts": {
+      "start-server": "npx nodemon server/server.js",
+      "start-client": "cd client && npm run dev",
+      "start": "concurrently \"npm run start-server\" \"npm run start-client\"",
+      "install-all": "npm install && cd server && npm install && cd .. && cd client && npm install"
+    },
+    "devDependencies": {
+      "concurrently": "^7.3.0"
+    }
+  }
+  
