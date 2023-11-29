@@ -32,28 +32,6 @@ const Home = () => {
                     Discover <FaArrowDown className="inline-block ml-2" />
                 </a>
             </div>
-
-            <hr className="flex flex-col my-16 border-t border-gray-300 dark:border-gray-700" />
-        
-            
-            <section id="discover-features" className="flex flex-col justify-center h-96">
-                <h2 className="text-3xl md:text-4xl lg:text-5xl text-gray-800 dark:text-white">
-                    Discover Our Features
-                </h2>
-                <p className="home-discovery-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                    Nullam faucibus, risus non condimentum pretium, urna urna 
-                    posuere mauris.
-                </p>
-                <p className="home-discovery-text">
-                    Vestibulum fringilla nec leo et cursus. Integer auctor ante 
-                    a orci eleifend, et blandit metus rhoncus.
-                </p>
-                <p className="home-discovery-text">
-                    Aliquam a orci at nulla accumsan consectetur. Curabitur 
-                    ullamcorper bibendum metus, id posuere nulla rhoncus sed.
-                </p>
-            </section>
         </>
     );
 }

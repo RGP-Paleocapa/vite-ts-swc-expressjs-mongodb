@@ -1,14 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from "react";
+import AddItemForm from "../../components/mongodb/AddItemForm";
+import ItemList from "../../components/mongodb/ItemList";
 
-// Define a type for your item
 type Item = {
   _id: string;
   name: string;
   description: string;
 };
 
-function App() {
+function MongoDb() {
   const [items, setItems] = useState<Item[]>([]);
+
+  useEffect(() => {
+    fetchItems();
+  }, []);
 
   // Function to fetch items
   const fetchItems = () => {
@@ -18,17 +23,12 @@ function App() {
       .catch(error => console.error('Error fetching items:', error));
   };
 
-  useEffect(() => {
-    fetchItems();
-  }, []);
-
-  // Function to add a new item
-  const addItem = async () => {
-    const newItem = { name: "New Item", description: "Description of new item" };
+  // Update addItem to accept an item parameter
+  const addItem = async (item: { name: string; description: string }) => {
     await fetch('http://localhost:3000/api/items', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newItem)
+      body: JSON.stringify(item)
     });
     fetchItems();
   };
@@ -44,39 +44,10 @@ function App() {
   return (
     <div className="container mx-auto p-4">
       <h1 className='text-3xl font-bold mb-4'>Item List</h1>
-      <button 
-        onClick={addItem}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4"
-      >
-        Add Item
-      </button>
-      <table className="table-auto w-full">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="px-4 py-2">Name</th>
-            <th className="px-4 py-2">Description</th>
-            <th className="px-4 py-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map(item => (
-            <tr key={item._id}>
-              <td className="border px-4 py-2">{item.name}</td>
-              <td className="border px-4 py-2">{item.description}</td>
-              <td className="border px-4 py-2">
-                <button 
-                  onClick={() => deleteItem(item._id)}
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <AddItemForm onAddItem={addItem} />
+      <ItemList items={items} onDeleteItem={deleteItem} />
     </div>
   );
 }
 
-export default App;
+export default MongoDb;
